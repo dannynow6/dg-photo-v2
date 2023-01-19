@@ -13,7 +13,7 @@ class BlogArticle(models.Model):
     date_published = models.DateField(auto_now_add=True)
     description = models.CharField(max_length=300)
     article = models.TextField()
-    owner = models.ForeignKey(User, on_delete=models.CASCADE) 
+    owner = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default="dan") 
 
     def __str__(self) -> str:
         """Return a string representation of BlogArticle"""
