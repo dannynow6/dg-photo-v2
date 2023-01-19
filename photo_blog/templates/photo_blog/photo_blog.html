@@ -1,4 +1,4 @@
-{% extends 'dg_photography/base.html' %} {% load static %} {% load bootstrap4 %}
+{% extends 'dg_photography/base.html' %} {% load static %} {% load bootstrap4 %} {% load humanize %}
 {% block content %}
     <div class="container">
         <h2 class="text-center text-secondary display-4 pb-3 border-bottom border-secondary">Articles</h2>
@@ -19,6 +19,7 @@
                 <article class="mx-3">
                     <h5>{{ article.title }}</h5>
                     <p>by {{ article.author }}</p>
+                    <p>{{ article.date_published }}</p>
                     <a href="{% url 'photo_blog:article' article.id %}"> View</a>
                 </article>
             </li>
