@@ -1,0 +1,29 @@
+{% extends 'dg_photography/base.html' %} {% load static %} {% load bootstrap4 %}
+{% block content %}
+<div class="container w-75 p-4 my-4 border">
+  <h3 class="text-secondary p-4 border-bottom" style="background-color: #f2fbff;">New Photo</h3>
+  <div class="container p-4 my-2">
+    <form enctype="multipart/form-data" method="POST" action="{% url 'dg_photography:new_photo' %}">
+    {% csrf_token %} 
+    <p>
+      {{ form.as_p }}
+    </p>
+      <p>
+        {{ form.image.label_tag }}
+      </p>
+      <p>
+        {{ form.image }}
+      </p>
+      <button
+        type="submit"
+        class="btn btn-lg btn-outline-primary"
+        role="button"
+        alt="submit"
+        value="Save"
+      >
+        Submit Photo Info
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock content %}

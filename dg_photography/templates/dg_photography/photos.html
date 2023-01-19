@@ -1,0 +1,22 @@
+{% extends "dg_photography/base.html" %} {% load static %} {% load bootstrap4 %}
+{% block content %}
+<div class="container w-75">
+    <h2 class="text-secondary text-center display-4 pb-3 border-muted border-bottom">Photos</h2>
+    <br />
+    <div>
+        <a class="nav-link text-right" href="{% url 'dg_photography:new_photo' %}">Add a Photo</a>
+    </div>
+</div>
+<div class="container w-75">
+    <ul class="list-group">
+        {% for photo in photos %}
+        <li class="list-group-item">
+            <article class="mx-3">
+                <h5>{{ photo.title }}</h5>
+                <p>{{ photo.year_taken }}</p>
+                <a href="{% url 'dg_photography:photo' photo.id %}">View</a>
+            </article>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

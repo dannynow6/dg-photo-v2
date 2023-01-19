@@ -1,0 +1,24 @@
+{% extends "dg_photography/base.html" %} {% load static %} {% load bootstrap4 %}
+{% block content %}
+<article class="border-bottom border-secondary">
+    <h3 class="text-center text-secondary display-4">{{ article.title }}</h3>
+    <br />
+    <header>
+        <p class="text-right text-muted pr-4">By {{ article.author }}</p>
+        <p class="text-right text-muted pr-4">Published {{ article.date_published }}</p>
+        <br />
+        <p class="text-center text-secondary">{{ article.description }}</p>
+    </header>
+</article>
+<br />
+<article>
+    {% if article.image %}
+    <img src="{{ article.image.url }}" style="max-width:750px;max-height:500px;">
+    <br />
+    {% else %}
+    <p>No image</p>
+    {% endif %}
+    <br />
+    <p>{{ article.article }}</p>
+</article>
+{% endblock content %}

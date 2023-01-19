@@ -1,0 +1,26 @@
+{% extends "dg_photography/base.html" %} {% load static %} {% load bootstrap4 %}
+{% block content %}
+<div class="container w-75">
+    <h2 class="text-secondary text-center display-4 pb-3 border-muted border-bottom">About</h2>
+    <br />
+    <p class="text-muted text-center">
+        Learn, discover, and enjoy photography. 
+    </p>
+</div>
+<div class="container w-75">
+    <article class="border-bottom border-muted pb-2">
+        <h6 class="text-muted text-center border-bottom border-muted pb-2">Featured Photo</h6>
+        <a class="nav-link text-right" href="{% url 'dg_photography:photos' %}">Photos</a>
+        <br />
+        <h6 class="text-secondary text-center mb-2">{{ photo.title }}</h6>
+    </article>
+    <article>
+        {% if photo.picture %}
+        <img src="{{ photo.picture.url }}" style="max-width:800px;max-height:500px;" />
+        {% else %}
+        <img src="{% static 'img/mountain_1.jpg' %}" style="max-width:800px;max-height:500px;" />
+        {% endif %}
+    </article>
+</div>
+
+{% endblock content %}

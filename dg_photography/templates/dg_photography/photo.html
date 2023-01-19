@@ -1,0 +1,22 @@
+{% extends "dg_photography/base.html" %} {% load static %} {% load bootstrap4 %}
+{% block content %}
+<div class="container">
+    <h4 class="text-center text-secondary display-4 border-bottom border-muted pb-2">{{ photo.title }}</h4>
+    <br />
+    <article>
+        <p>
+            Camera: {{ photo.camera_make }}, {{ photo.camera_model }}
+        </p>
+        <p>
+            Lens: {{ photo.lens_make }}, {{ photo.lens_model }}
+        </p>
+        <p>{{ photo.year_taken }}</p>
+    </article>
+    <br />
+    {% if photo.picture %}
+    <img src="{{ photo.picture.url }}" style="max-width:750px;max-height:500px;">
+    {% else %}
+    <p>No image</p>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends 'dg_photography/base.html' %} {% load static %} {% load bootstrap4 %}
+{% block content %}
+<div class="container w-75">
+  <h2 class="text-center text-secondary display-4 pb-3 border-bottom border-secondary">Register</h2>
+  <br />
+  <div class="m-4">
+    <form method="post" action="{% url 'users:register' %}">
+      {% csrf_token %} {{ form.as_p }}
+  
+      <button class="btn btn-outline-success" name="submit">Register</button>
+      <input type="hidden" name="next" value="{% url 'dg_photography:index' %}" />
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

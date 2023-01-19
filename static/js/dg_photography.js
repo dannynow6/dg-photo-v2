@@ -1,0 +1,1 @@
+// This will contain main JavaScript Scripts for dg_photography client-side 

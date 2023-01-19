@@ -1,0 +1,30 @@
+{% extends 'dg_photography/base.html' %} {% load static %} {% load bootstrap4 %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center text-secondary display-4 pb-3 border-bottom border-secondary">Articles</h2>
+        <br />
+        <p class="text-center text-secondary">
+            Discover, learn, and stay informed. 
+        </p>
+        <br />
+        <div>
+            <a class="nav-link text-right" href="{% url 'photo_blog:new_blog_article' %}">Create New Article</a>
+            <a class="nav-link text-right" href="{% url 'photo_blog:my_articles' %}">My Blog Articles</a>
+        </div>
+    </div>
+    <div class="container w-75">
+        <ul class="list-group">
+            {% for article in articles %}
+            <li class="list-group-item">
+                <article class="mx-3">
+                    <h5>{{ article.title }}</h5>
+                    <p>by {{ article.author }}</p>
+                    <a href="{% url 'photo_blog:article' article.id %}"> View</a>
+                </article>
+            </li>
+            {% empty %}
+            <li>There are no articles</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}
