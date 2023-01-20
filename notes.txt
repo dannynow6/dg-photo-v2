@@ -16,3 +16,15 @@ from about:
             <img src="{% static 'img/logo_color.png' %}" width="30" height="30" class="d-inline-block align-top">
             DG Photography
         </div>
+
+
+
+
+<h6 class="text-secondary text-center mb-2">{{ photo.title }}</h6>
+    <article class="d-flex justify-content-center">
+        {% if photo.picture %}
+        <img src="{{ photo.picture.url }}" style="max-width:675px;max-height:500px;" />
+        {% else %}
+        <img src="{% static 'img/mountain_1.jpg' %}" style="max-width:675px;max-height:500px;" />
+        {% endif %}
+    </article>

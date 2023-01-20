@@ -9,7 +9,7 @@
 </div>
 <div class="container w-75">
     <article class="border-bottom border-muted pb-2">
-        <h6 class="text-muted text-center border-bottom border-muted pb-2">Featured Photo</h6>
+        <h6 class="text-muted text-center border-bottom border-muted pb-2">Featured Photos</h6>
         <ul class="nav justify-content-end">
             <li class="nav-item">
                 <a class="nav-link text-right" href="{% url 'dg_photography:photos' %}">Photos</a>
@@ -18,16 +18,44 @@
                 <a class="nav-link text-right" href="{% url 'photo_blog:photo_blog' %}">Blog</a>
             </li>
         </ul>
-        <br />
-        <h6 class="text-secondary text-center mb-2">{{ photo.title }}</h6>
     </article>
-    <article class="d-flex justify-content-center">
-        {% if photo.picture %}
-        <img src="{{ photo.picture.url }}" style="max-width:675px;max-height:500px;" />
-        {% else %}
-        <img src="{% static 'img/mountain_1.jpg' %}" style="max-width:800px;max-height:500px;" />
-        {% endif %}
-    </article>
+    <br />
+    <div id="carouselAboutControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <h6 class="text-secondary text-center mb-2">{{ photo.title }}</h6>
+                {% if photo.picture %}
+                <article class="d-flex justify-content-center">
+                    <img src="{{ photo.picture.url }}"  class="d-block w-100" style="max-width:675px;max-height:500px;" />
+                </article>
+                {% else %}
+                <article class="d-flex justify-content-center">
+                    <img src="{% static 'img/mountain_1.jpg' %}" class="d-block w-100" style="max-width:675px;max-height:500px;" />
+                </article>
+                {% endif %}
+            </div>
+            <div class="carousel-item">
+                <h6 class="text-secondary text-center mb-2">{{ photo2.title }}</h6>
+                {% if photo2.picture %}
+                <article class="d-flex justify-content-center">
+                    <img src="{{ photo2.picture.url }}"  class="d-block w-100" style="max-width:675px;max-height:500px;" />
+                </article>
+                {% else %}
+                <article class="d-flex justify-content-center">
+                    <img src="{% static 'img/mountain_1.jpg' %}" class="d-block w-100" style="max-width:675px;max-height:500px;" />
+                </article>
+                {% endif %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-target="#carouselAboutControls" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-target="#carouselAboutControls" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </button>
+        </div>
+    </div> 
 </div>
 
 {% endblock content %}

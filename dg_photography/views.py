@@ -12,6 +12,8 @@ def index(request):
     """The home page for dg_photography"""
     articles = BlogArticle.objects.all()
     x = random.randint(1, len(articles))
+    if x == 3:
+        x += 1
     article_id = x
     article = BlogArticle.objects.get(id=article_id)
     context = {"article": article}
@@ -41,9 +43,12 @@ def about(request):
     """dg photography about page"""
     photos = Photo.objects.all()
     x = random.randint(1, len(photos))
+    y = random.randint(1, len(photos))
     photo_id = x
+    photo2_id = y
     photo = Photo.objects.get(id=photo_id)
-    context = {"photo": photo}
+    photo2 = Photo.objects.get(id=photo2_id)
+    context = {"photo": photo, "photo2": photo2}
     return render(request, "dg_photography/about.html", context)
 
 
