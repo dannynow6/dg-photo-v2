@@ -1,5 +1,5 @@
 from django import forms
-from .models import BlogArticle
+from .models import BlogArticle, Comment
 
 
 class BlogArticleForm(forms.ModelForm):
@@ -28,3 +28,17 @@ class BlogArticleForm(forms.ModelForm):
             "description": forms.TextInput,
             "article": forms.Textarea,
         }
+
+
+class CommentForm(forms.ModelForm):
+    """A form for adding a new comment to Photo Blog"""
+
+    class Meta:
+        model = Comment
+        fields = [
+            "comment",
+        ]
+        labels = {
+            "comment": "Comment",
+        }
+        widgets = {"comment": forms.Textarea(attrs={"cols": 80})}

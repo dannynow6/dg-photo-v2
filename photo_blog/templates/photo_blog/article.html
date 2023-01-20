@@ -21,4 +21,10 @@
     <br />
     <p>{{ article.article }}</p>
 </article>
+<article>
+    <p class="text-center text-secondary">Comments</p>
+    <p>
+        <a href="{% url 'photo_blog:new_comment' article.id %}">Add a new comment</a>
+    </p>
+</article>
 {% endblock content %}

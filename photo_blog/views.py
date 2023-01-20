@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import BlogArticle
-from .forms import BlogArticleForm
+from .forms import BlogArticleForm, CommentForm
 
 # Create your views here
 
@@ -62,3 +62,24 @@ def edit_article(request, article_id):
             return redirect("photo_blog:my_articles")
     context = {"article": article, "form": form}
     return render(request, "photo_blog/edit_article.html", context)
+
+
+@login_required
+def new_comment(request, article_id):
+    """Add a new comment for a particular article"""
+    article = BlogArticle.objects.get(id=article_id)
+
+    if request.method != "POST":
+        # No data submitted - create blank form
+        form = CommentForm()
+    else:
+        # POST data submitted; process data
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.article = article
+            new_comment.save()
+            return redirect("photo_blog:article", article_id=article_id)
+    # Display a blank or invalid form
+    context = {"article": article, "form": form}
+    return render(request, "photo_blog/new_comment.html", context)

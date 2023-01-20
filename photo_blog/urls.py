@@ -12,8 +12,10 @@ urlpatterns = [
     path("new_blog_article/", views.new_blog_article, name="new_blog_article"),
     # A Page for Single Article Contents
     path("photo_blog/<int:article_id>/", views.article, name="article"),
-    # A Page to display articles user has created 
-    path("my_articles/", views.my_articles, name="my_articles"), 
-    # A Page for users to edit their articles 
-    path('edit_article/<int:article_id>/', views.edit_article, name="edit_article"), 
+    # A Page to display articles user has created
+    path("my_articles/", views.my_articles, name="my_articles"),
+    # A Page for users to edit their articles
+    path("edit_article/<int:article_id>/", views.edit_article, name="edit_article"),
+    # A page for adding a new comment
+    path("new_comment/<int:article_id>/", views.new_comment, name="new_comment"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
