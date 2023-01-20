@@ -7,6 +7,7 @@
         <p class="text-right text-muted pr-4">By {{ article.author }}</p>
         <p class="text-right text-muted pr-4">Published {{ article.date_published }}</p>
         <br />
+        <a class="nav-link text-right pr-4" href="{% url 'photo_blog:photo_blog' %}">Blog</a>
         <p class="text-center text-secondary">{{ article.description }}</p>
     </header>
 </article>
@@ -21,10 +22,23 @@
     <br />
     <p>{{ article.article }}</p>
 </article>
-<article>
+<div class="container w-75">
     <p class="text-center text-secondary">Comments</p>
     <p>
         <a href="{% url 'photo_blog:new_comment' article.id %}">Add a new comment</a>
     </p>
-</article>
+    <ul class="list-group">
+        {% for comment in comments %}
+        <li class="list-group-item">
+            <article class="mx-3">
+                <p class="text-secondary">{{ comment.comment }}</p>
+                <p class="text-secondary text-center">{{ comment.owner }}</p>
+            </article>
+        </li>
+        {% empty %}
+        <li>No Comments</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock content %}
+

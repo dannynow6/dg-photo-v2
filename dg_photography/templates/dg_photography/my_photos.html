@@ -4,6 +4,7 @@
     <h2 class="text-secondary text-center display-4 pb-3 border-muted border-bottom">{{ user.username }}'s Photos</h2>
     <br />
     <div>
+        <a class="nav-link text-right" href="{% url 'dg_photography:photos' %}">Photos</a>
         <a class="nav-link text-right" href="{% url 'dg_photography:new_photo' %}">Add a Photo</a>
     </div>
 </div>

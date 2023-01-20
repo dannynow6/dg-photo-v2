@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import BlogArticle
+from .models import BlogArticle, Comment
 from .forms import BlogArticleForm, CommentForm
 
 # Create your views here
@@ -8,7 +8,7 @@ from .forms import BlogArticleForm, CommentForm
 
 def photo_blog(request):
     """Basic landing page for Photo Blog Articles"""
-    articles = BlogArticle.objects.order_by("date_published")
+    articles = BlogArticle.objects.order_by("-date_published")
     context = {"articles": articles}
     return render(request, "photo_blog/photo_blog.html", context)
 
@@ -34,7 +34,8 @@ def new_blog_article(request):
 def article(request, article_id):
     """Show a single article's contents and info"""
     article = BlogArticle.objects.get(id=article_id)
-    context = {"article": article}
+    comments = article.comment_set.order_by("-date_added")
+    context = {"article": article, "comments": comments}
     return render(request, "photo_blog/article.html", context)
 
 
@@ -42,7 +43,7 @@ def article(request, article_id):
 def my_articles(request):
     """Show all articles created by current user"""
     my_articles = BlogArticle.objects.filter(owner=request.user).order_by(
-        "date_published"
+        "-date_published"
     )
     context = {"my_articles": my_articles}
     return render(request, "photo_blog/my_articles.html", context)
@@ -74,10 +75,11 @@ def new_comment(request, article_id):
         form = CommentForm()
     else:
         # POST data submitted; process data
-        form = CommentForm(data=request.POST)
+        form = CommentForm(request.POST)
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.article = article
+            new_comment.owner = request.user
             new_comment.save()
             return redirect("photo_blog:article", article_id=article_id)
     # Display a blank or invalid form

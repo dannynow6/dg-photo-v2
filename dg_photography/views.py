@@ -49,7 +49,7 @@ def about(request):
 
 def photos(request):
     """dg photography page displaying photos uploaded to site"""
-    photos = Photo.objects.order_by("year_taken")
+    photos = Photo.objects.order_by("-year_taken")
     context = {"photos": photos}
     return render(request, "dg_photography/photos.html", context)
 
@@ -64,7 +64,7 @@ def photo(request, photo_id):
 @login_required
 def my_photos(request):
     """Show all photos a user has created/submitted"""
-    my_photos = Photo.objects.filter(owner=request.user).order_by("year_taken")
+    my_photos = Photo.objects.filter(owner=request.user).order_by("-year_taken")
     context = {"my_photos": my_photos}
     return render(request, "dg_photography/my_photos.html", context)
 

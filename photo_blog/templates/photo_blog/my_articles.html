@@ -4,6 +4,7 @@
         <h2 class="text-center text-secondary display-4 pb-3 border-bottom border-secondary">{{ user.username }}'s Articles</h2>
         <br />
         <div>
+            <a class="nav-link text-right" href="{% url 'photo_blog:photo_blog' %}">Blog</a>
             <a class="nav-link text-right" href="{% url 'photo_blog:new_blog_article' %}">Create New Article</a>
         </div>
     </div>
