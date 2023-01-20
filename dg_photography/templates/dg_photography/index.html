@@ -63,22 +63,33 @@
 <div class="container w-80">
   <article class="border-bottom border-muted pb-2">
     <h6 class="text-muted text-center border-bottom border-muted pb-2">Featured Article</h6>
-    <a class="nav-link text-right" href="{% url 'photo_blog:photo_blog' %}">Blog</a>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link text-right" href="{% url 'photo_blog:photo_blog' %}">Blog</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-right" href="{% url 'dg_photography:photos' %}">Photos</a>
+      </li>
+  </ul>
     <br />
     <h6 class="text-secondary text-center mb-2">{{ article.title }}</h6>
     <p class="text-secondary text-center">{{ article.description }}</p>
     <p class="text-muted text-right pr-2">{{ article.date_published }}</p>
   </article>
-  <article>
-    {% if article.image %}
-    <img src="{{ article.image.url }}" style="max-width:750px;max-height:500px;">
+  <div>
+    <article class="d-flex justify-content-center">
+      {% if article.image %}
+      <img src="{{ article.image.url }}" style="max-width:675px;max-height:500px;">
+      <br />
+      {% else %}
+      <p>No image</p>
+      {% endif %}
+    </article>
     <br />
-    {% else %}
-    <p>No image</p>
-    {% endif %}
-    <br />
-    <p>{{ article.article }}</p>
-</article>
+    <article class="d-flex justify-content-center">
+      <p>{{ article.article }}</p>
+    </article>
+  </div>
 </div>
 
 {% endblock content %}

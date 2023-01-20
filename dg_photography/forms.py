@@ -1,5 +1,5 @@
 from django import forms
-from .models import Photo
+from .models import Photo, PhotoComment
 from PIL import Image
 
 
@@ -81,3 +81,17 @@ class PhotoForm(forms.ModelForm):
             "focal_length": forms.TextInput,
             "picture": forms.ClearableFileInput,
         }
+
+
+class PhotoCommentForm(forms.ModelForm):
+    """A form for creating a new comment for a photo"""
+
+    class Meta:
+        model = PhotoComment
+        fields = [
+            "comment",
+        ]
+        labels = {
+            "comment": "Comment",
+        }
+        widgets = {"comment": forms.Textarea(attrs={"cols": 80})}

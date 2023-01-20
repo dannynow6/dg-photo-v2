@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 import random
 
 # from django.contrib.auth.decorators import login_required
-from .models import Photo
-from .forms import PhotoForm
+from .models import Photo, PhotoComment
+from .forms import PhotoForm, PhotoCommentForm
 from photo_blog.models import BlogArticle
 
 # Main site page
@@ -57,7 +57,8 @@ def photos(request):
 def photo(request, photo_id):
     """show a single photo and its details"""
     photo = Photo.objects.get(id=photo_id)
-    context = {"photo": photo}
+    comments = photo.photocomment_set.order_by("-date_added")
+    context = {"photo": photo, "comments": comments}
     return render(request, "dg_photography/photo.html", context)
 
 
@@ -83,3 +84,25 @@ def edit_photo(request, photo_id):
             return redirect("dg_photography:my_photos")
     context = {"photo": photo, "form": form}
     return render(request, "dg_photography/edit_photo.html", context)
+
+
+@login_required
+def new_photo_comment(request, photo_id):
+    """Add a new comment for a particular photo"""
+    photo = Photo.objects.get(id=photo_id)
+
+    if request.method != "POST":
+        # No data submitted - create blank form
+        form = PhotoCommentForm()
+    else:
+        # POST data submitted; process data
+        form = PhotoCommentForm(request.POST)
+        if form.is_valid():
+            new_photo_comment = form.save(commit=False)
+            new_photo_comment.photo = photo
+            new_photo_comment.owner = request.user
+            new_photo_comment.save()
+            return redirect("dg_photography:photo", photo_id=photo_id)
+    # Display a blank or invalid form
+    context = {"photo": photo, "form": form}
+    return render(request, "dg_photography/new_photo_comment.html", context)

@@ -42,7 +42,7 @@ class Photo(models.Model):
     lens_model = models.CharField(max_length=125, blank=True)
     focal_length = models.CharField(max_length=50, blank=True)
     picture = models.ImageField(upload_to="photos/", blank=True)
-    owner = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default="dan")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         """return a string representation of model"""
@@ -55,3 +55,19 @@ class Photo(models.Model):
         return (
             f"ID: {id} | {title} | {description} | Shot with {camera} in {geo} | {year}"
         )
+
+
+class PhotoComment(models.Model):
+    """A user's comment about a blog article"""
+
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    comment = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "photocomments"
+
+    def __str__(self):
+        """return a string representation of model"""
+        return f"{self.comment[:50]}..."

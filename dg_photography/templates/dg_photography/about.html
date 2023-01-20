@@ -10,13 +10,20 @@
 <div class="container w-75">
     <article class="border-bottom border-muted pb-2">
         <h6 class="text-muted text-center border-bottom border-muted pb-2">Featured Photo</h6>
-        <a class="nav-link text-right" href="{% url 'dg_photography:photos' %}">Photos</a>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link text-right" href="{% url 'dg_photography:photos' %}">Photos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-right" href="{% url 'photo_blog:photo_blog' %}">Blog</a>
+            </li>
+        </ul>
         <br />
         <h6 class="text-secondary text-center mb-2">{{ photo.title }}</h6>
     </article>
-    <article>
+    <article class="d-flex justify-content-center">
         {% if photo.picture %}
-        <img src="{{ photo.picture.url }}" style="max-width:800px;max-height:500px;" />
+        <img src="{{ photo.picture.url }}" style="max-width:675px;max-height:500px;" />
         {% else %}
         <img src="{% static 'img/mountain_1.jpg' %}" style="max-width:800px;max-height:500px;" />
         {% endif %}

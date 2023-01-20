@@ -14,10 +14,30 @@
         <p>{{ photo.year_taken }}</p>
     </article>
     <br />
-    {% if photo.picture %}
-    <img src="{{ photo.picture.url }}" style="max-width:750px;max-height:500px;">
-    {% else %}
-    <p>No image</p>
-    {% endif %}
+    <article class="d-flex justify-content-center">
+        {% if photo.picture %}
+        <img src="{{ photo.picture.url }}" style="max-width:750px;max-height:500px;">
+        {% else %}
+        <p>No image</p>
+        {% endif %}
+    </article>
+</div>
+<div class="container w-75">
+    <p class="text-center text-secondary">Comments</p>
+    <p>
+        <a class="nav-link text-right" href="{% url 'dg_photography:new_photo_comment' photo.id %}">Add a new comment</a>
+    </p>
+    <ul class="list-group">
+        {% for comment in comments %}
+        <li class="list-group-item">
+            <article class="mx-3">
+                <p class="text-secondary">{{ comment.comment }}</p>
+                <p class="text-secondary text-center">{{ comment.owner }}</p>
+            </article>
+        </li>
+        {% empty %}
+        <li>No Comments</li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock content %}

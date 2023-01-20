@@ -1,31 +1,37 @@
 {% extends "dg_photography/base.html" %} {% load static %} {% load bootstrap4 %}
 {% block content %}
-<article class="border-bottom border-secondary">
-    <h3 class="text-center text-secondary display-4">{{ article.title }}</h3>
-    <br />
-    <header>
-        <p class="text-right text-muted pr-4">By {{ article.author }}</p>
-        <p class="text-right text-muted pr-4">Published {{ article.date_published }}</p>
+<div class="container w-75">
+    <article class="border-bottom border-secondary">
+        <h3 class="text-center text-secondary display-4">{{ article.title }}</h3>
         <br />
-        <a class="nav-link text-right pr-4" href="{% url 'photo_blog:photo_blog' %}">Blog</a>
-        <p class="text-center text-secondary">{{ article.description }}</p>
-    </header>
-</article>
-<br />
-<article>
-    {% if article.image %}
-    <img src="{{ article.image.url }}" style="max-width:750px;max-height:500px;">
+        <header>
+            <p class="text-right text-muted pr-4">By {{ article.author }}</p>
+            <p class="text-right text-muted pr-4">Published {{ article.date_published }}</p>
+            <br />
+            <a class="nav-link text-right pr-4" href="{% url 'photo_blog:photo_blog' %}">Blog</a>
+            <p class="text-center text-secondary">{{ article.description }}</p>
+        </header>
+    </article>
     <br />
-    {% else %}
-    <p>No image</p>
-    {% endif %}
-    <br />
-    <p>{{ article.article }}</p>
-</article>
+    <div>
+        <article class="d-flex justify-content-center">
+            {% if article.image %}
+            <img src="{{ article.image.url }}" style="max-width:750px;max-height:500px;">
+            <br />
+            {% else %}
+            <p>No image</p>
+            {% endif %} 
+        </article>
+        <br />
+        <article class="d-flex justify-content-center px-4">
+            <p>{{ article.article }}</p>
+        </article>
+    </div>
+</div>
 <div class="container w-75">
     <p class="text-center text-secondary">Comments</p>
     <p>
-        <a href="{% url 'photo_blog:new_comment' article.id %}">Add a new comment</a>
+        <a class="nav-link text-right" href="{% url 'photo_blog:new_comment' article.id %}">Add a new comment</a>
     </p>
     <ul class="list-group">
         {% for comment in comments %}
