@@ -17,8 +17,8 @@
             {% for article in articles %}
             <li class="list-group-item">
                 <article class="mx-3">
-                    <h5>{{ article.title }}</h5>
-                    <p>by {{ article.author }}</p>
+                    <h5 class="text-capitalize">{{ article.title }}</h5>
+                    <p class="text-capitalize">by {{ article.author }}</p>
                     <p>{{ article.date_published }}</p>
                     <a href="{% url 'photo_blog:article' article.id %}"> View</a>
                 </article>

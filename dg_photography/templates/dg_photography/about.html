@@ -23,7 +23,7 @@
     <div id="carouselAboutControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <h6 class="text-secondary text-center mb-2">{{ photo.title }}</h6>
+                <h6 class="text-secondary text-capitalize text-center mb-2">{{ photo.title }}</h6>
                 {% if photo.picture %}
                 <article class="d-flex justify-content-center">
                     <img src="{{ photo.picture.url }}"  class="d-block w-100" style="max-width:675px;max-height:500px;" />
@@ -35,7 +35,7 @@
                 {% endif %}
             </div>
             <div class="carousel-item">
-                <h6 class="text-secondary text-center mb-2">{{ photo2.title }}</h6>
+                <h6 class="text-secondary text-capitalize text-center mb-2">{{ photo2.title }}</h6>
                 {% if photo2.picture %}
                 <article class="d-flex justify-content-center">
                     <img src="{{ photo2.picture.url }}"  class="d-block w-100" style="max-width:675px;max-height:500px;" />

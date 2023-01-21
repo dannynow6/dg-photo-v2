@@ -1,7 +1,7 @@
 {% extends 'dg_photography/base.html' %} {% load static %} {% load bootstrap4 %} {% load humanize %}
 {% block content %}
     <div class="container">
-        <h2 class="text-center text-secondary display-4 pb-3 border-bottom border-secondary">{{ user.username }}'s Articles</h2>
+        <h2 class="text-center text-secondary text-capitalize display-4 pb-3 border-bottom border-secondary">{{ user.username }}'s Articles</h2>
         <br />
         <div>
             <a class="nav-link text-right" href="{% url 'photo_blog:photo_blog' %}">Blog</a>
@@ -13,7 +13,7 @@
             {% for article in my_articles %}
             <li class="list-group-item">
                 <article class="mx-3">
-                    <h5>{{ article.title }}</h5>
+                    <h5 class="text-capitalize">{{ article.title }}</h5>
                     <p>{{ article.date_published }}</p>
                     <a href="{% url 'photo_blog:article' article.id %}"> View</a>
                     <br />

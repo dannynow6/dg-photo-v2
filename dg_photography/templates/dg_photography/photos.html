@@ -13,7 +13,7 @@
         {% for photo in photos %}
         <li class="list-group-item">
             <article class="mx-3">
-                <h5>{{ photo.title }}</h5>
+                <h5 class="text-capitalize">{{ photo.title }}</h5>
                 <p>{{ photo.year_taken }}</p>
                 <a href="{% url 'dg_photography:photo' photo.id %}">View</a>
             </article>
