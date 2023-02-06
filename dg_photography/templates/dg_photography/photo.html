@@ -1,7 +1,7 @@
 {% extends "dg_photography/base.html" %} {% load static %} {% load bootstrap4 %} {% load humanize %}
 {% block content %}
 <div class="container">
-    <h4 class="text-center text-secondary text-capitalize display-4 border-bottom border-muted pb-2">{{ photo.title }}</h4>
+    <h4 class="text-center text-secondary text-capitalize display-4 pb-2">{{ photo.title }}</h4>
     <br />
     <article>
         <a class="nav-link text-right" href="{% url 'dg_photography:photos' %}">Photos</a>
