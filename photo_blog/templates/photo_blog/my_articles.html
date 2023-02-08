@@ -18,6 +18,8 @@
                     <a href="{% url 'photo_blog:article' article.id %}"> View</a>
                     <br />
                     <a href="{% url 'photo_blog:edit_article' article.id %}"> Edit</a>
+                    <br />
+                    <a href="{% url 'photo_blog:print_article' article.id %}"> Print</a>
                 </article>
             </li>
             {% empty %}

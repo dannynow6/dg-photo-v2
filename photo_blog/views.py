@@ -3,6 +3,11 @@ from django.contrib.auth.decorators import login_required
 from .models import BlogArticle, Comment
 from .forms import BlogArticleForm, CommentForm
 
+# imports for reportlab example django docs
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+
 # Create your views here
 
 
@@ -85,3 +90,28 @@ def new_comment(request, article_id):
     # Display a blank or invalid form
     context = {"article": article, "form": form}
     return render(request, "photo_blog/new_comment.html", context)
+
+
+def print_article(request, article_id):
+    # Create a file-like buffer to receive the PDF data
+    buffer = io.BytesIO()
+    # Create the PDF object using buffer as its 'file'
+    p = canvas.Canvas(buffer)
+    # Grab article info and define variables to then draw on Canvas
+    article = BlogArticle.objects.get(id=article_id)
+    title = article.title.title()
+    author = article.author.title()
+    date_pub = str(article.date_published)
+    description = article.description
+    # Draw things to the PDF - ie generate a PDF
+    p.drawString(250, 500, title)
+    p.drawString(250, 400, author)
+    p.drawString(250, 300, date_pub)
+    p.drawString(250, 200, description)
+    # Close the PDF object cleanly, and we're done
+    p.showPage()
+    p.save()
+    # FileResponse sets the Content-Disposition header so that browsers
+    # present the option to save the file
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename=f"{date_pub}.pdf")

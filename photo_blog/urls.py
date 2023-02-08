@@ -18,4 +18,8 @@ urlpatterns = [
     path("edit_article/<int:article_id>/", views.edit_article, name="edit_article"),
     # A page for adding a new comment
     path("new_comment/<int:article_id>/", views.new_comment, name="new_comment"),
+    # A path for generating a pdf from an article
+    path(
+        "photo_blog/<int:article_id>/print/", views.print_article, name="print_article"
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
