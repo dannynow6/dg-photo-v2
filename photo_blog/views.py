@@ -98,7 +98,7 @@ def print_article(request, article_id):
     buffer = io.BytesIO()
     # Create the PDF object using buffer as its 'file' / define pagesize as standard letter
     p = canvas.Canvas(buffer, pagesize=letter)
-    p.setFont("Times-Roman", 20, leading=None)
+    p.setFont("Times-Roman", 14, leading=None)
     # save page dimensions to variables width/height
     # width, height = letter
     # Grab article info and define variables to then draw on Canvas
@@ -114,14 +114,22 @@ def print_article(request, article_id):
     p.drawText(textobject)"""
     # Draw things to the PDF - ie generate a PDF
     # p.setStrokeColorRGB(94, 94, 94)
-    p.line(248, 490, 350, 490)
-    p.rect(245, 390, 50, 25, stroke=1, fill=0)
-    p.circle(300, 500, 200, stroke=1, fill=0)
+    # p.line(248, 490, 350, 490)
+    # p.rect(245, 390, 50, 25, stroke=1, fill=0)
+    # p.circle(300, 500, 200, stroke=1, fill=0)
     p.drawString(250, 500, title)
     p.drawString(250, 400, author)
     p.drawString(250, 300, date_pub)
     p.drawString(250, 200, description)
-    p.drawCentredString(275, 100, text)
+    # Trying some cotter stuff to see what it looks like 
+    p.drawString(100, 115, "G. Cotter Enterprises, Inc.")
+    p.drawString(115, 100, "48 Brown Avenue") 
+    p.drawString(105, 85, "Springfield, NJ 07081")
+    p.drawString(105, 70, "Phone: (973) 376-5840") 
+    p.drawString(110, 55, "Fax: (973) 376-5937")
+    p.setFont("Times-Italic", 14, leading=None)
+    p.drawString(400, 115, "G. Cotter Enterprises, Inc.")
+    #p.drawCentredString(275, 100, text)
     # Close the PDF object cleanly, and we're done
     p.showPage()
     p.save()
