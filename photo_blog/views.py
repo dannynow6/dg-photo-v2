@@ -7,6 +7,7 @@ from .forms import BlogArticleForm, CommentForm
 import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 
 # Create your views here
 
@@ -95,19 +96,32 @@ def new_comment(request, article_id):
 def print_article(request, article_id):
     # Create a file-like buffer to receive the PDF data
     buffer = io.BytesIO()
-    # Create the PDF object using buffer as its 'file'
-    p = canvas.Canvas(buffer)
+    # Create the PDF object using buffer as its 'file' / define pagesize as standard letter
+    p = canvas.Canvas(buffer, pagesize=letter)
+    p.setFont("Times-Roman", 20, leading=None)
+    # save page dimensions to variables width/height
+    # width, height = letter
     # Grab article info and define variables to then draw on Canvas
     article = BlogArticle.objects.get(id=article_id)
     title = article.title.title()
     author = article.author.title()
     date_pub = str(article.date_published)
     description = article.description
+    text = article.article
+    """textobject = p.beginText()
+    textobject.setFont("Times-Bold", 24, leading=None) 
+    textobject.textLine(title)
+    p.drawText(textobject)"""
     # Draw things to the PDF - ie generate a PDF
+    # p.setStrokeColorRGB(94, 94, 94)
+    p.line(248, 490, 350, 490)
+    p.rect(245, 390, 50, 25, stroke=1, fill=0)
+    p.circle(300, 500, 200, stroke=1, fill=0)
     p.drawString(250, 500, title)
     p.drawString(250, 400, author)
     p.drawString(250, 300, date_pub)
     p.drawString(250, 200, description)
+    p.drawCentredString(275, 100, text)
     # Close the PDF object cleanly, and we're done
     p.showPage()
     p.save()
