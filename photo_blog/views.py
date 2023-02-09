@@ -9,6 +9,16 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 
+"""
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle  
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer  
+from reportlab.pdfgen.canvas import Canvas 
+from reportlab.lib.units import inch 
+from reportlab.rl_config import defaultPageSize 
+
+PAGE_HEIGHT=defaultPageSize[1]
+PAGE_WIDTH=defaultPageSize[0] 
+styles = getSampleStyleSheet() """
 # Create your views here
 
 
@@ -121,15 +131,19 @@ def print_article(request, article_id):
     p.drawString(250, 400, author)
     p.drawString(250, 300, date_pub)
     p.drawString(250, 200, description)
-    # Trying some cotter stuff to see what it looks like 
+    # Trying some cotter stuff to see what it looks like
+    object1 = p.beginText(400, 800)
+    object1.setFont("Helvetica", 16, leading=None)
+    object1.textLine(text="G. Cotter Enterprises, Inc.")
+
     p.drawString(100, 115, "G. Cotter Enterprises, Inc.")
-    p.drawString(115, 100, "48 Brown Avenue") 
+    p.drawString(115, 100, "48 Brown Avenue")
     p.drawString(105, 85, "Springfield, NJ 07081")
-    p.drawString(105, 70, "Phone: (973) 376-5840") 
+    p.drawString(105, 70, "Phone: (973) 376-5840")
     p.drawString(110, 55, "Fax: (973) 376-5937")
     p.setFont("Times-Italic", 14, leading=None)
     p.drawString(400, 115, "G. Cotter Enterprises, Inc.")
-    #p.drawCentredString(275, 100, text)
+    # p.drawCentredString(275, 100, text)
     # Close the PDF object cleanly, and we're done
     p.showPage()
     p.save()
