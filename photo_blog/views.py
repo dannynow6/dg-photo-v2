@@ -9,16 +9,13 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 
-"""
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle  
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer  
-from reportlab.pdfgen.canvas import Canvas 
-from reportlab.lib.units import inch 
-from reportlab.rl_config import defaultPageSize 
+# imports for styling purposes and PDF structure
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image 
+from reportlab.lib.enums import TA_JUSTIFY 
+from reportlab.lib.units import inch
+from reportlab.rl_config import defaultPageSize
 
-PAGE_HEIGHT=defaultPageSize[1]
-PAGE_WIDTH=defaultPageSize[0] 
-styles = getSampleStyleSheet() """
 # Create your views here
 
 
@@ -107,7 +104,28 @@ def print_article(request, article_id):
     # Create a file-like buffer to receive the PDF data
     buffer = io.BytesIO()
     # Create the PDF object using buffer as its 'file' / define pagesize as standard letter
-    p = canvas.Canvas(buffer, pagesize=letter)
+    p = SimpleDocTemplate(
+        buffer,
+        pagesize=letter,
+        rightMargin=72,
+        leftMargin=72,
+        topMargin=36,
+        bottomMargin=18,
+    )
+    width, height = letter
+    Story = []
+    logo = "../../static/img/dg.png" 
+    company_name = "G. Cotter Enterprises, Inc." 
+    address_parts = ["48 Brown Avenue", "Springfield, NJ 07081", "Phone: (973) 376-5840", "Fax: (973) 376-5937", "Toll free: (888) 808-WELD"]
+    im = Image(logo, 2*inch, 2*inch) 
+    Story.append(im) 
+    
+    styles = getSampleStyleSheet() 
+    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
+    
+    Story.append(Paragraph,(styles["Normal"]))
+    Story.append(Spacer(1, 12)) 
+    
     p.setFont("Times-Roman", 14, leading=None)
     # save page dimensions to variables width/height
     # width, height = letter
