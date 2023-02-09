@@ -111,50 +111,7 @@ def print_article(request, article_id):
 
     # logo = "../../img_fordoc/dg.png"
     # p.drawImage(logo, width * 0.4, height * 0.8, width=125, height=125)
-    company_name = "G. Cotter Enterprises, Inc."
-    address_parts = [
-        "48 Brown Avenue",
-        "Springfield, NJ 07081",
-        "Phone: (973) 376-5840",
-        "Fax: (973) 376-5937",
-        "Toll free: (888) 808-WELD",
-    ]
-
-    styles = getSampleStyleSheet()
-    p.setFont("Times-Roman", 16, leading=None)
-    # Try using textobject to do address at bottom left of page
-    textobject = p.beginText(50, 105)
-    textobject.setFont("Times-Roman", 10, leading=None)
-    textobject.textLine(text=company_name)
-    p.drawText(textobject)
-    textobject1 = p.beginText(65, 90)
-    textobject1.setFont("Times-Roman", 10, leading=None)
-    textobject1.textLine(text=address_parts[0])
-    p.drawText(textobject1)
-    textobject2 = p.beginText(55, 75)
-    textobject2.setFont("Times-Roman", 10, leading=None)
-    textobject2.textLine(text=address_parts[1])
-    p.drawText(textobject2)
-    textobject3 = p.beginText(54, 60)
-    textobject3.setFont("Times-Roman", 10, leading=None)
-    textobject3.textLine(text=address_parts[2])
-    p.drawText(textobject3)
-    textobject4 = p.beginText(58, 45)
-    textobject4.setFont("Times-Roman", 10, leading=None)
-    textobject4.textLine(text=address_parts[3])
-    p.drawText(textobject4)
-    # New Text Object for Signature area bottom-right page 
-    textobj = p.beginText(335, 100)
-    textobj.setFont("Times-Italic", 14, leading=None) 
-    textobj.textLine(text=company_name) 
-    p.drawText(textobj)
-    textobj1 = p.beginText(335, 45)
-    textobj1.setFont("Times-Roman", 10, leading=None) 
-    textobj1.textLine(text="Jerry Cotter, President")
-    p.drawText(textobj1)
-    p.line(335, 65, 470, 65)
-    # New text object for Cert of Compliance bottom info 
-    cc_obj = p.beginText()
+    
     # p.setFont("Times-Roman", 14, leading=None)
     # save page dimensions to variables width/height
     # width, height = letter
