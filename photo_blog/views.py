@@ -10,11 +10,13 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 
 # imports for styling purposes and PDF structure
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image 
-from reportlab.lib.enums import TA_JUSTIFY 
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+
+# from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.lib.units import inch
-from reportlab.rl_config import defaultPageSize
+
+# from reportlab.rl_config import defaultPageSize
 
 # Create your views here
 
@@ -104,29 +106,56 @@ def print_article(request, article_id):
     # Create a file-like buffer to receive the PDF data
     buffer = io.BytesIO()
     # Create the PDF object using buffer as its 'file' / define pagesize as standard letter
-    p = SimpleDocTemplate(
-        buffer,
-        pagesize=letter,
-        rightMargin=72,
-        leftMargin=72,
-        topMargin=36,
-        bottomMargin=18,
-    )
+    p = canvas.Canvas(buffer, pagesize=letter)
     width, height = letter
-    Story = []
-    logo = "../../static/img/dg.png" 
-    company_name = "G. Cotter Enterprises, Inc." 
-    address_parts = ["48 Brown Avenue", "Springfield, NJ 07081", "Phone: (973) 376-5840", "Fax: (973) 376-5937", "Toll free: (888) 808-WELD"]
-    im = Image(logo, 2*inch, 2*inch) 
-    Story.append(im) 
-    
-    styles = getSampleStyleSheet() 
-    styles.add(ParagraphStyle(name='Justify', alignment=TA_JUSTIFY))
-    
-    Story.append(Paragraph,(styles["Normal"]))
-    Story.append(Spacer(1, 12)) 
-    
-    p.setFont("Times-Roman", 14, leading=None)
+
+    # logo = "../../img_fordoc/dg.png"
+    # p.drawImage(logo, width * 0.4, height * 0.8, width=125, height=125)
+    company_name = "G. Cotter Enterprises, Inc."
+    address_parts = [
+        "48 Brown Avenue",
+        "Springfield, NJ 07081",
+        "Phone: (973) 376-5840",
+        "Fax: (973) 376-5937",
+        "Toll free: (888) 808-WELD",
+    ]
+
+    styles = getSampleStyleSheet()
+    p.setFont("Times-Roman", 16, leading=None)
+    # Try using textobject to do address at bottom left of page
+    textobject = p.beginText(50, 105)
+    textobject.setFont("Times-Roman", 10, leading=None)
+    textobject.textLine(text=company_name)
+    p.drawText(textobject)
+    textobject1 = p.beginText(65, 90)
+    textobject1.setFont("Times-Roman", 10, leading=None)
+    textobject1.textLine(text=address_parts[0])
+    p.drawText(textobject1)
+    textobject2 = p.beginText(55, 75)
+    textobject2.setFont("Times-Roman", 10, leading=None)
+    textobject2.textLine(text=address_parts[1])
+    p.drawText(textobject2)
+    textobject3 = p.beginText(54, 60)
+    textobject3.setFont("Times-Roman", 10, leading=None)
+    textobject3.textLine(text=address_parts[2])
+    p.drawText(textobject3)
+    textobject4 = p.beginText(58, 45)
+    textobject4.setFont("Times-Roman", 10, leading=None)
+    textobject4.textLine(text=address_parts[3])
+    p.drawText(textobject4)
+    # New Text Object for Signature area bottom-right page 
+    textobj = p.beginText(335, 100)
+    textobj.setFont("Times-Italic", 14, leading=None) 
+    textobj.textLine(text=company_name) 
+    p.drawText(textobj)
+    textobj1 = p.beginText(335, 45)
+    textobj1.setFont("Times-Roman", 10, leading=None) 
+    textobj1.textLine(text="Jerry Cotter, President")
+    p.drawText(textobj1)
+    p.line(335, 65, 470, 65)
+    # New text object for Cert of Compliance bottom info 
+    cc_obj = p.beginText()
+    # p.setFont("Times-Roman", 14, leading=None)
     # save page dimensions to variables width/height
     # width, height = letter
     # Grab article info and define variables to then draw on Canvas
@@ -136,15 +165,13 @@ def print_article(request, article_id):
     date_pub = str(article.date_published)
     description = article.description
     text = article.article
-    """textobject = p.beginText()
-    textobject.setFont("Times-Bold", 24, leading=None) 
-    textobject.textLine(title)
-    p.drawText(textobject)"""
+
     # Draw things to the PDF - ie generate a PDF
     # p.setStrokeColorRGB(94, 94, 94)
     # p.line(248, 490, 350, 490)
     # p.rect(245, 390, 50, 25, stroke=1, fill=0)
     # p.circle(300, 500, 200, stroke=1, fill=0)
+    """
     p.drawString(250, 500, title)
     p.drawString(250, 400, author)
     p.drawString(250, 300, date_pub)
@@ -161,7 +188,8 @@ def print_article(request, article_id):
     p.drawString(110, 55, "Fax: (973) 376-5937")
     p.setFont("Times-Italic", 14, leading=None)
     p.drawString(400, 115, "G. Cotter Enterprises, Inc.")
-    # p.drawCentredString(275, 100, text)
+    # p.drawCentredString(275, 100, text)"""
+
     # Close the PDF object cleanly, and we're done
     p.showPage()
     p.save()
