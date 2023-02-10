@@ -8,16 +8,7 @@ import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
-
-# imports for styling purposes and PDF structure
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
-
-# from reportlab.lib.enums import TA_JUSTIFY
-from reportlab.lib.units import inch
-
-# from reportlab.rl_config import defaultPageSize
-
+import datetime 
 # Create your views here
 
 
@@ -119,34 +110,28 @@ def print_article(request, article_id):
     article = BlogArticle.objects.get(id=article_id)
     title = article.title.title()
     author = article.author.title()
-    date_pub = str(article.date_published)
+    date_pub = article.date_published  # use f"{date_pub.strftime('%m/%d/%Y')}""
     description = article.description
     text = article.article
-
-    # Draw things to the PDF - ie generate a PDF
-    # p.setStrokeColorRGB(94, 94, 94)
-    # p.line(248, 490, 350, 490)
-    # p.rect(245, 390, 50, 25, stroke=1, fill=0)
-    # p.circle(300, 500, 200, stroke=1, fill=0)
-    """
-    p.drawString(250, 500, title)
-    p.drawString(250, 400, author)
-    p.drawString(250, 300, date_pub)
-    p.drawString(250, 200, description)
-    # Trying some cotter stuff to see what it looks like
-    object1 = p.beginText(400, 800)
-    object1.setFont("Helvetica", 16, leading=None)
-    object1.textLine(text="G. Cotter Enterprises, Inc.")
-
-    p.drawString(100, 115, "G. Cotter Enterprises, Inc.")
-    p.drawString(115, 100, "48 Brown Avenue")
-    p.drawString(105, 85, "Springfield, NJ 07081")
-    p.drawString(105, 70, "Phone: (973) 376-5840")
-    p.drawString(110, 55, "Fax: (973) 376-5937")
-    p.setFont("Times-Italic", 14, leading=None)
-    p.drawString(400, 115, "G. Cotter Enterprises, Inc.")
-    # p.drawCentredString(275, 100, text)"""
-
+    photo = article.image 
+    # Add logo
+    dg_logo = "./static/img/dg_logo.jpg" 
+    p.drawImage(dg_logo, 198, 612, width=None, height=None) 
+    # add title of article 
+    title_obj = p.beginText(252, 576)
+    title_obj.setFont("Times-BoldItalic", 14, leading=None) 
+    title_obj.textLine(text=f"{title}") 
+    p.drawText(title_obj) 
+    # Add Date 
+    date_obj = p.beginText(504, 540)
+    date_obj.setFont("Times-Roman", 11, leading=None) 
+    date_obj.textLine(text=f"{date_pub.strftime('%m/%d/%Y')}")
+    p.drawText(date_obj) 
+    # author 
+    auth_obj = p.beginText(108, 504) 
+    auth_obj.setFont("Times-Roman", 11, leading=None) 
+    auth_obj.textLine(text=f"written by {author}")
+    p.drawText(auth_obj)    
     # Close the PDF object cleanly, and we're done
     p.showPage()
     p.save()
