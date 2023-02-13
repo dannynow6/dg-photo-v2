@@ -1,5 +1,11 @@
 {% extends 'dg_photography/base.html' %} {% load static %} {% load bootstrap4 %} {% load humanize %}
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-white">
+        <li class="breadcrumb-item"><a href="{% url 'dg_photography:index' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Photo Blog</li>
+    </ol>
+</nav>
     <div class="container">
         <h2 class="text-center text-secondary display-4 pb-3 border-bottom border-muted">Articles</h2>
         <br />
