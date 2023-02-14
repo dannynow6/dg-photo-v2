@@ -8,10 +8,10 @@
 </nav>
 <div class="container w-75">
     <article>
-        <h3 class="text-center text-capitalize text-secondary display-4">{{ article.title }}</h3>
+        <h3 class="text-center text-secondary display-4">{{ article.title|title }}</h3>
         <br />
         <header>
-            <p class="text-right text-capitalize text-muted pr-4">By {{ article.author }}</p>
+            <p class="text-right text-muted pr-4">By {{ article.author|title }}</p>
             <p class="text-right text-muted pr-4">Published {{ article.date_published }}</p>
             <br />
             <a class="nav-link text-right pr-4" href="{% url 'photo_blog:photo_blog' %}">Blog</a>
@@ -44,7 +44,7 @@
         <li class="list-group-item">
             <article class="mx-3">
                 <p class="text-secondary text-left">- {{ comment.comment }}</p>
-                <p class="text-secondary text-capitalize text-center">{{ comment.owner }}</p>
+                <p class="text-secondary text-center">{{ comment.owner|title }}</p>
             </article>
         </li>
         {% empty %}

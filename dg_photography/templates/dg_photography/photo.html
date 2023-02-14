@@ -8,15 +8,15 @@
     </ol>
 </nav>
 <div class="container">
-    <h4 class="text-center text-secondary text-capitalize display-4 pb-2">{{ photo.title }}</h4>
+    <h4 class="text-center text-secondary display-4 pb-2">{{ photo.title|title }}</h4>
     <br />
     <article>
         <a class="nav-link text-right" href="{% url 'dg_photography:photos' %}">Photos</a>
         <p>
-            Camera: {{ photo.camera_make }}, {{ photo.camera_model }}
+            Camera: {{ photo.camera_make|title }}, {{ photo.camera_model }}
         </p>
         <p>
-            Lens: {{ photo.lens_make }}, {{ photo.lens_model }}
+            Lens: {{ photo.lens_make|title }}, {{ photo.lens_model }}
         </p>
         <p>{{ photo.year_taken }}</p>
     </article>
@@ -39,7 +39,7 @@
         <li class="list-group-item">
             <article class="mx-3">
                 <p class="text-secondary text-left">- {{ comment.comment }}</p>
-                <p class="text-secondary text-center">{{ comment.owner }}</p>
+                <p class="text-secondary text-center">{{ comment.owner|title }}</p>
             </article>
         </li>
         {% empty %}
