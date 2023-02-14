@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from .forms import UserForm, ProfileForm
 
 
 def register(request):
@@ -21,19 +22,13 @@ def register(request):
     context = {"form": form}
     return render(request, "registration/register.html", context)
 
-    """
-    from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from .models import Profile
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-    """
+def userpage(request):
+    user_form = UserForm(instance=request.user)
+    profile_form = ProfileForm(instance=request.user.profile)
+    context = {
+        "user": request.user,
+        "user_form": user_form,
+        "profile_form": profile_form,
+    }
+    return render(request=request, template_name="users/user.html", context=context)
