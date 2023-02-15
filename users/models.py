@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 
 
 class Profile(models.Model):
-    """A profile model to extend Django's build in User model"""
+    """A profile model to extend Django's built in User model"""
 
     EXPERIENCE_CHOICES = [
         ("pro", "Professional"),
