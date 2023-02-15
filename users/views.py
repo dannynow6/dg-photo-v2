@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import NewUserForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth.models import User
+from .models import Profile
 
 
 def register(request):
@@ -27,19 +28,20 @@ def register(request):
     return render(request, "registration/register.html", context)
 
 
-def user_profile(request):
+def user_profile(request, user_id):
     """a page for user's to create their profile"""
-
+    profile = Profile.objects.get(user=user_id)
     if request.method != "POST":
         # Display a blank profile form
-        form = ProfileForm()
+        form = ProfileForm(instance=profile)
     else:
-        form = ProfileForm(data=request.POST)
+        form = ProfileForm(request.POST, instance=profile)
 
         if form.is_valid():
             new_profile = form.save(commit=False)
             new_profile.save()
             return redirect("dg_photography:index")
 
-    context = {"form": form}
+    context = {"profile": profile, "form": form}
     return render(request, "registration/user_profile.html", context)
+

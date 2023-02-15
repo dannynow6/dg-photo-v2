@@ -11,5 +11,5 @@ urlpatterns = [
     # Registration page
     path("register/", views.register, name="register"),
     # a page for user to create profile
-    path("user_profile/", views.user_profile, name="user_profile"),
+    path("user_profile/<int:user_id>/", views.user_profile, name="user_profile"),
 ]

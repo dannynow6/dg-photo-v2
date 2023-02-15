@@ -10,7 +10,7 @@
     <h2 class="text-secondary text-center display-4 pb-3 border-muted border-bottom">{{ user.username|title }}'s Profile</h2>
     <br />
     <div class="container p-4 m-2">
-        <form action="{% url 'users:user_profile' %}" method="POST">
+        <form action="{% url 'users:user_profile' user.id %}" method="POST">
             {% csrf_token %} 
             <p>
                 {{ form.as_p }}
@@ -29,3 +29,4 @@
 </div>
 
 {% endblock content %}
+
