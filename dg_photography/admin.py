@@ -1,8 +1,12 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import (
     Photo,
 )
 
-admin.site.register(Photo)
+# Registered dg_photography models
+
+
+class PhotoAdmin(admin.ModelAdmin):
+    list = ("title", "camera_make", "camera_model", "year_taken")
+
+    admin.site.register(Photo)
