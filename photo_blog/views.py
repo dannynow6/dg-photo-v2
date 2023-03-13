@@ -2,13 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import BlogArticle, Comment
 from .forms import BlogArticleForm, CommentForm
+from users.decorators import post_before_comment
 
 # imports for reportlab example django docs
 import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
-import datetime 
+import datetime
+
 # Create your views here
 
 
@@ -72,6 +74,7 @@ def edit_article(request, article_id):
 
 
 @login_required
+@post_before_comment 
 def new_comment(request, article_id):
     """Add a new comment for a particular article"""
     article = BlogArticle.objects.get(id=article_id)
@@ -102,7 +105,7 @@ def print_article(request, article_id):
 
     # logo = "../../img_fordoc/dg.png"
     # p.drawImage(logo, width * 0.4, height * 0.8, width=125, height=125)
-    
+
     # p.setFont("Times-Roman", 14, leading=None)
     # save page dimensions to variables width/height
     # width, height = letter
@@ -113,25 +116,25 @@ def print_article(request, article_id):
     date_pub = article.date_published  # use f"{date_pub.strftime('%m/%d/%Y')}""
     description = article.description
     text = article.article
-    photo = article.image 
+    photo = article.image
     # Add logo
-    dg_logo = "./static/img/dg_logo.jpg" 
-    p.drawImage(dg_logo, 198, 612, width=None, height=None) 
-    # add title of article 
+    dg_logo = "./static/img/dg_logo.jpg"
+    p.drawImage(dg_logo, 198, 612, width=None, height=None)
+    # add title of article
     title_obj = p.beginText(252, 576)
-    title_obj.setFont("Times-BoldItalic", 14, leading=None) 
-    title_obj.textLine(text=f"{title}") 
-    p.drawText(title_obj) 
-    # Add Date 
+    title_obj.setFont("Times-BoldItalic", 14, leading=None)
+    title_obj.textLine(text=f"{title}")
+    p.drawText(title_obj)
+    # Add Date
     date_obj = p.beginText(504, 540)
-    date_obj.setFont("Times-Roman", 11, leading=None) 
+    date_obj.setFont("Times-Roman", 11, leading=None)
     date_obj.textLine(text=f"{date_pub.strftime('%m/%d/%Y')}")
-    p.drawText(date_obj) 
-    # author 
-    auth_obj = p.beginText(108, 504) 
-    auth_obj.setFont("Times-Roman", 11, leading=None) 
+    p.drawText(date_obj)
+    # author
+    auth_obj = p.beginText(108, 504)
+    auth_obj.setFont("Times-Roman", 11, leading=None)
     auth_obj.textLine(text=f"written by {author}")
-    p.drawText(auth_obj)    
+    p.drawText(auth_obj)
     # Close the PDF object cleanly, and we're done
     p.showPage()
     p.save()
