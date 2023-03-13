@@ -1,10 +1,6 @@
-# import functools
 from django.shortcuts import redirect
-
-# from django.contrib import messages
 from photo_blog.models import BlogArticle
 
-# from django.contrib.auth.models import User
 
 
 def post_before_comment(view_func):
@@ -14,8 +10,11 @@ def post_before_comment(view_func):
     """
 
     def wrapped_view(request, *args, **kwargs):
+        # Get count of articles published by current user 
         user_article_count = BlogArticle.objects.filter(owner=request.user).count()
+        # Check to see if current user has published at least 1 article 
         if user_article_count == 0:
+            # if user has not published at least 1 article, redirect create new article
             return redirect("photo_blog:new_blog_article")
         return view_func(request, *args, **kwargs)
 
