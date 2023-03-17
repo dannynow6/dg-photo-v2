@@ -1,4 +1,4 @@
-{% extends "dg_photography/base.html" %} {% load static %} {% load bootstrap4 %} {% load humanize %}
+{% extends "dg_photography/base.html" %} {% load static %} {% load bootstrap4 %} {% load bootstrap_icons %} {% load humanize %}
 {% block title %}{{ photo.title|title }}{% endblock title %}
 {% block content %}
 <nav aria-label="breadcrumb">
@@ -33,7 +33,7 @@
 <div class="container w-75">
     <p class="text-center text-secondary">Comments</p>
     <p>
-        <a class="nav-link text-right" href="{% url 'dg_photography:new_photo_comment' photo.id %}">Add a new comment</a>
+        <a class="nav-link text-right" href="{% url 'dg_photography:new_photo_comment' photo.id %}">New {% bs_icon 'chat-dots' %}</a>
     </p>
     <ul class="list-group">
         {% for comment in comments %}

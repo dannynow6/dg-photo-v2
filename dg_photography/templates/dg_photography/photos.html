@@ -1,4 +1,4 @@
-{% extends "dg_photography/base.html" %} {% load static %} {% load bootstrap4 %} {% load humanize %}
+{% extends "dg_photography/base.html" %} {% load static %} {% load bootstrap4 %} {% load bootstrap_icons %} {% load humanize %}
 {% block title %}Photos - DG Photography{% endblock title %}
 {% block content %}
 <nav aria-label="breadcrumb">
@@ -11,8 +11,8 @@
     <h2 class="text-secondary text-center display-4 pb-3 border-muted border-bottom">Photos</h2>
     <br />
     <div>
-        <a class="nav-link text-right" href="{% url 'dg_photography:new_photo' %}">Add Photo</a>
-        <a class="nav-link text-right" href="{% url 'dg_photography:my_photos' %}">My Photos</a>
+        <a class="nav-link text-right" href="{% url 'dg_photography:new_photo' %}">{% bs_icon 'plus-circle' %} Photo</a>
+        <a class="nav-link text-right" href="{% url 'dg_photography:my_photos' %}">My {% bs_icon 'images' %}</a>
     </div>
 </div>
 <div class="container w-75">
